@@ -47,6 +47,7 @@ import (
 	"github.com/cozystack/cozystack/internal/backupcontroller/etcdtypes"
 	"github.com/cozystack/cozystack/internal/backupcontroller/foundationdbapp"
 	"github.com/cozystack/cozystack/internal/backupcontroller/foundationdbtypes"
+	"github.com/cozystack/cozystack/internal/backupcontroller/kafkatypes"
 	"github.com/cozystack/cozystack/internal/backupcontroller/mariadbapp"
 	"github.com/cozystack/cozystack/internal/backupcontroller/mariadbtypes"
 	"github.com/cozystack/cozystack/internal/backupcontroller/mongodbapp"
@@ -77,6 +78,7 @@ func init() {
 	utilruntime.Must(foundationdbapp.AddToScheme(scheme))
 	utilruntime.Must(etcdtypes.AddToScheme(scheme))
 	utilruntime.Must(etcdapp.AddToScheme(scheme))
+	utilruntime.Must(kafkatypes.AddToScheme(scheme))
 	// +kubebuilder:scaffold:scheme
 }
 
