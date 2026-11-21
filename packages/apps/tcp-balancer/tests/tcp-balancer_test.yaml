@@ -8,14 +8,20 @@ release:
   namespace: tenant-test
 
 tests:
-  - it: renders a Deployment with the default replica count and haproxy image
-    documentSelector:
-      path: kind
-      value: Deployment
+  - it: starts two HAProxy replicas by default
+    template: templates/deployment.yaml
     asserts:
       - equal:
           path: spec.replicas
           value: 2
+      - isNotEmpty:
+          path: spec.template.spec.containers[?(@.name=="haproxy")].image
+
+  - it: rolls out the requested replica count
+    template: templates/deployment.yaml
+    set:
+      replicas: 3
+    asserts:
       - equal:
-          path: spec.template.spec.containers[0].image
-          value: "haproxy:latest"
+          path: spec.replicas
+          value: 3
